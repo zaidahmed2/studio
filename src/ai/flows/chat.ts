@@ -44,8 +44,27 @@ const chatFlow = ai.defineFlow(
     inputSchema: ChatInputSchema,
     outputSchema: ChatOutputSchema,
   },
-  async input => {
-    const {output} = await prompt(input);
-    return output!;
+  async (input) => {
+    const maxRetries = 3;
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        const { output } = await prompt(input);
+        if (!output) {
+          throw new Error('No output from AI model.');
+        }
+        return output;
+      } catch (error) {
+        if (error instanceof Error && error.message.includes('503') && attempt < maxRetries) {
+          console.log(`Attempt ${attempt} failed with 503. Retrying in ${attempt}s...`);
+          await new Promise(res => setTimeout(res, 1000 * attempt));
+          continue;
+        }
+        // On last attempt or for non-503 errors, throw the error
+        throw error;
+      }
+    }
+    // This line is technically unreachable but satisfies TypeScript that the function
+    // always returns a value or throws.
+    throw new Error('Chat flow failed after all retries.');
   }
 );
