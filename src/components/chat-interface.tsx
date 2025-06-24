@@ -1,12 +1,14 @@
 "use client";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { Bot, Send, User, Loader2 } from "lucide-react";
 import React, { useState, useRef, useEffect } from "react";
+import { chat } from "@/ai/flows/chat";
+import { useToast } from "@/hooks/use-toast";
 
 type Message = {
   id: string;
@@ -19,6 +21,7 @@ export function ChatInterface() {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const { toast } = useToast();
 
   useEffect(() => {
     if (scrollAreaRef.current) {
@@ -39,6 +42,7 @@ export function ChatInterface() {
       content: input,
     };
     setMessages((prev) => [...prev, userMessage]);
+    const currentInput = input;
     setInput("");
     setIsLoading(true);
 
@@ -50,16 +54,30 @@ export function ChatInterface() {
     };
     setMessages((prev) => [...prev, aiMessagePlaceholder]);
 
-    // Simulate AI response
-    setTimeout(() => {
+    try {
+      const result = await chat({ message: currentInput });
       const aiResponse: Message = {
         id: aiMessageId,
         role: "ai",
-        content: "This is a simulated response based on your input. The real app would use a fine-tuned Gemini model.",
+        content: result.response,
       };
       setMessages((prev) => prev.map(m => m.id === aiMessageId ? aiResponse : m));
-      setIsLoading(false);
-    }, 1500);
+    } catch (error) {
+        console.error("Failed to get AI response:", error);
+        toast({
+            variant: "destructive",
+            title: "Chat Error",
+            description: "Failed to get a response from the AI. Please try again.",
+        });
+        const errorResponse: Message = {
+            id: aiMessageId,
+            role: "ai",
+            content: "Sorry, I encountered an error.",
+        };
+        setMessages((prev) => prev.map(m => m.id === aiMessageId ? errorResponse : m));
+    } finally {
+        setIsLoading(false);
+    }
   };
 
   return (
