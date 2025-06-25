@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
-import { Bot, Send, User, Loader2 } from "lucide-react";
+import { Bot, Send, User, Loader2, Heart } from "lucide-react";
 import React, { useState, useRef, useEffect } from "react";
 import { chat } from "@/ai/flows/chat";
 import { useToast } from "@/hooks/use-toast";
@@ -87,10 +87,10 @@ export function ChatInterface() {
                 <div className="p-4 space-y-6">
                 {messages.length === 0 ? (
                     <div className="flex flex-col items-center justify-center h-[calc(100vh-14rem)] text-center">
-                        <Bot className="w-16 h-16 text-muted-foreground" />
-                        <h2 className="mt-4 text-2xl font-semibold">Welcome to Zania</h2>
+                        <Heart className="w-16 h-16 text-primary animate-pulse" />
+                        <h2 className="mt-4 text-2xl font-semibold">This is Zaina's World</h2>
                         <p className="mt-2 text-muted-foreground">
-                            Start a conversation by typing a message below.
+                            Ask me about the story of Zaid and Hania...
                         </p>
                     </div>
                 ) : (
@@ -104,7 +104,7 @@ export function ChatInterface() {
                     >
                         {message.role === "ai" && (
                         <Avatar className="w-8 h-8 border">
-                            <AvatarFallback><Bot className="w-4 h-4" /></AvatarFallback>
+                            <AvatarFallback className="bg-secondary"><Bot className="w-4 h-4" /></AvatarFallback>
                         </Avatar>
                         )}
                         <div
@@ -128,12 +128,12 @@ export function ChatInterface() {
                 </div>
             </ScrollArea>
         </div>
-        <div className="p-4 bg-background border-t">
+        <div className="p-4 bg-background/80 backdrop-blur-sm border-t">
             <form onSubmit={handleSendMessage} className="flex items-center gap-3">
             <Input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Type your message..."
+                placeholder="Ask something about their story..."
                 className="flex-1"
                 disabled={isLoading}
             />
