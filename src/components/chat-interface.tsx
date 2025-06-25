@@ -81,16 +81,16 @@ export function ChatInterface() {
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-6rem)] max-h-full">
+    <div className="flex flex-col h-full">
         <div className="flex-1 overflow-hidden">
             <ScrollArea className="h-full" ref={scrollAreaRef}>
                 <div className="p-4 space-y-6">
                 {messages.length === 0 ? (
-                    <div className="flex flex-col items-center justify-center h-[calc(100vh-14rem)] text-center">
+                    <div className="flex flex-col items-center justify-center h-full text-center">
                         <Heart className="w-16 h-16 text-primary animate-pulse" />
-                        <h2 className="mt-4 text-2xl font-semibold tracking-wide">Welcome to Zaina's World</h2>
+                        <h2 className="mt-4 text-2xl font-semibold tracking-wide">A Story Waiting to Unfold</h2>
                         <p className="mt-2 text-muted-foreground">
-                            Our story begins with a single tap. Ask me anything...
+                            Every great love story starts somewhere. Ask about ours.
                         </p>
                     </div>
                 ) : (
