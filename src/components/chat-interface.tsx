@@ -95,9 +95,10 @@ export function ChatInterface() {
               {messages.length === 0 ? (
                   <div className="flex flex-col items-center justify-center h-full text-center">
                       <Heart className="w-16 h-16 text-primary animate-pulse" />
-                      <h2 className="mt-4 text-2xl font-semibold tracking-wide">Sirf Aapke Liye</h2>
+                      <h2 className="mt-4 text-2xl font-semibold tracking-wide">Zaid's Digital Version</h2>
                       <p className="mt-2 text-muted-foreground">
-                          Zaid se guftugu shuru karein. Pehla message bhejein.
+                          
+                      Only Hania is allowed there agar koi or aya itna ganda roast krunga apna name bhul jaega wo 
                       </p>
                   </div>
               ) : (
@@ -139,7 +140,7 @@ export function ChatInterface() {
             <Input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Send a message..."
+                placeholder="Yahan Bakchodi Kren..."
                 className="flex-1"
                 disabled={isLoading}
             />
