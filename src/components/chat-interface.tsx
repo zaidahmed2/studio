@@ -128,7 +128,7 @@ export function ChatInterface() {
                 </div>
             </ScrollArea>
         </div>
-        <div className="p-4 bg-background/80 backdrop-blur-sm border-t">
+        <div className="p-4 bg-background/80 backdrop-blur-sm border-t mb-3 sm:mb-0">
             <form onSubmit={handleSendMessage} className="flex items-center gap-3">
             <Input
                 value={input}
