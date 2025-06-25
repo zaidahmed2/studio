@@ -88,9 +88,9 @@ export function ChatInterface() {
                 {messages.length === 0 ? (
                     <div className="flex flex-col items-center justify-center h-[calc(100vh-14rem)] text-center">
                         <Heart className="w-16 h-16 text-primary animate-pulse" />
-                        <h2 className="mt-4 text-2xl font-semibold">This is Zaina's World</h2>
+                        <h2 className="mt-4 text-2xl font-semibold tracking-wide">Welcome to Zaina's World</h2>
                         <p className="mt-2 text-muted-foreground">
-                            Ask me about the story of Zaid and Hania...
+                            Our story begins with a single tap. Ask me anything...
                         </p>
                     </div>
                 ) : (
@@ -109,10 +109,10 @@ export function ChatInterface() {
                         )}
                         <div
                         className={cn(
-                            "max-w-md rounded-lg p-3 text-sm shadow-sm",
+                            "max-w-xl rounded-2xl p-4 text-sm shadow-lg",
                             message.role === "user"
                             ? "bg-primary text-primary-foreground"
-                            : "bg-card"
+                            : "bg-card border"
                         )}
                         >
                         {message.content}

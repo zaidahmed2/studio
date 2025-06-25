@@ -79,6 +79,8 @@
     background-color: hsla(var(--primary), 0.2);
     bottom: -150px;
     animation: floatHearts 25s linear infinite;
+    -webkit-clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
   }
 
   .heart:nth-child(1) { left: 25%; width: 80px; height: 80px; animation-delay: 0s; }
@@ -96,35 +98,10 @@
     0% {
       transform: translateY(0px) rotate(0deg);
       opacity: 1;
-      border-radius: 0;
     }
     100% {
-      transform: translateY(-1000px) rotate(720deg);
+      transform: translateY(-1200px) rotate(720deg);
       opacity: 0;
-      border-radius: 50%;
-    }
-  }
-
-  .bg-text {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 18vw;
-    font-weight: 900;
-    color: hsla(var(--primary), 0.05);
-    z-index: -2;
-    user-select: none;
-    animation: glow 10s ease-in-out infinite alternate;
-    white-space: nowrap;
-  }
-
-  @keyframes glow {
-    from {
-      text-shadow: 0 0 20px hsla(var(--primary), 0.1), 0 0 30px hsla(var(--primary), 0.1);
-    }
-    to {
-      text-shadow: 0 0 30px hsla(var(--primary), 0.2), 0 0 40px hsla(var(--primary), 0.2);
     }
   }
 }
