@@ -6,13 +6,13 @@ import { ZaniaLogo } from "@/components/zania-logo"
 
 export function MainLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex flex-col min-h-screen">
-      <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background/80 px-4 backdrop-blur-sm sm:px-6">
+    <div className="flex flex-col h-screen max-h-screen">
+      <header className="flex h-16 shrink-0 items-center gap-4 border-b bg-background/80 px-4 backdrop-blur-sm sm:px-6">
         <Link href="/" className="flex items-center gap-2 font-semibold">
            <ZaniaLogo />
         </Link>
       </header>
-      <main className="flex-1">
+      <main className="flex-1 overflow-hidden">
         {children}
       </main>
     </div>

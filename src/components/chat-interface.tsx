@@ -25,10 +25,12 @@ export function ChatInterface() {
 
   useEffect(() => {
     if (scrollAreaRef.current) {
-      scrollAreaRef.current.scrollTo({
-        top: scrollAreaRef.current.scrollHeight,
-        behavior: "smooth",
-      });
+      const viewport = scrollAreaRef.current.querySelector('[data-radix-scroll-area-viewport]');
+      if (viewport) {
+        requestAnimationFrame(() => {
+          viewport.scrollTop = viewport.scrollHeight;
+        });
+      }
     }
   }, [messages]);
 
@@ -82,52 +84,50 @@ export function ChatInterface() {
 
   return (
     <div className="flex flex-col h-full">
-        <div className="flex-1 overflow-hidden">
-            <ScrollArea className="h-full" ref={scrollAreaRef}>
-                <div className="p-4 sm:p-6 space-y-6">
-                {messages.length === 0 ? (
-                    <div className="flex flex-col items-center justify-center h-full text-center">
-                        <Heart className="w-16 h-16 text-primary animate-pulse" />
-                        <h2 className="mt-4 text-2xl font-semibold tracking-wide">A Story of Two Hearts</h2>
-                        <p className="mt-2 text-muted-foreground">
-                            Every message is a new chapter. What would you like to know?
-                        </p>
-                    </div>
-                ) : (
-                    messages.map((message) => (
-                    <div
-                        key={message.id}
-                        className={cn(
-                        "flex items-start gap-3",
-                        message.role === "user" && "justify-end"
-                        )}
-                    >
-                        {message.role === "ai" && (
-                        <Avatar className="w-8 h-8 border">
-                            <AvatarFallback className="bg-secondary"><Bot className="w-4 h-4" /></AvatarFallback>
-                        </Avatar>
-                        )}
-                        <div
-                        className={cn(
-                            "max-w-xl rounded-2xl p-4 text-sm shadow-lg",
-                            message.role === "user"
-                            ? "bg-primary text-primary-foreground"
-                            : "bg-card border"
-                        )}
-                        >
-                        {message.content}
-                        </div>
-                        {message.role === "user" && (
-                        <Avatar className="w-8 h-8 border">
-                            <AvatarFallback><User className="w-4 h-4" /></AvatarFallback>
-                        </Avatar>
-                        )}
-                    </div>
-                    ))
-                )}
-                </div>
-            </ScrollArea>
-        </div>
+        <ScrollArea className="flex-1" ref={scrollAreaRef}>
+            <div className="p-4 sm:p-6 space-y-6 h-full">
+              {messages.length === 0 ? (
+                  <div className="flex flex-col items-center justify-center h-full text-center">
+                      <Heart className="w-16 h-16 text-primary animate-pulse" />
+                      <h2 className="mt-4 text-2xl font-semibold tracking-wide">A Story of Two Hearts</h2>
+                      <p className="mt-2 text-muted-foreground">
+                          Every message is a new chapter. What would you like to know?
+                      </p>
+                  </div>
+              ) : (
+                  messages.map((message) => (
+                  <div
+                      key={message.id}
+                      className={cn(
+                      "flex items-start gap-3",
+                      message.role === "user" && "justify-end"
+                      )}
+                  >
+                      {message.role === "ai" && (
+                      <Avatar className="w-8 h-8 border">
+                          <AvatarFallback className="bg-secondary"><Bot className="w-4 h-4" /></AvatarFallback>
+                      </Avatar>
+                      )}
+                      <div
+                      className={cn(
+                          "max-w-xl rounded-2xl p-4 text-sm shadow-lg",
+                          message.role === "user"
+                          ? "bg-primary text-primary-foreground"
+                          : "bg-card border"
+                      )}
+                      >
+                      {message.content}
+                      </div>
+                      {message.role === "user" && (
+                      <Avatar className="w-8 h-8 border">
+                          <AvatarFallback><User className="w-4 h-4" /></AvatarFallback>
+                      </Avatar>
+                      )}
+                  </div>
+                  ))
+              )}
+            </div>
+        </ScrollArea>
         <div className="p-4 bg-background/80 backdrop-blur-sm border-t">
             <form onSubmit={handleSendMessage} className="flex items-center gap-3">
             <Input
