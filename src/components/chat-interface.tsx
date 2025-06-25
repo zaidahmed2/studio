@@ -12,7 +12,7 @@ import { useToast } from "@/hooks/use-toast";
 
 type Message = {
   id: string;
-  role: "user" | "ai";
+  role: "user" | "model";
   content: string | React.ReactNode;
 };
 
@@ -43,24 +43,30 @@ export function ChatInterface() {
       role: "user",
       content: input,
     };
-    setMessages((prev) => [...prev, userMessage]);
-    const currentInput = input;
+    
+    const newMessages = [...messages, userMessage];
+    setMessages(newMessages);
     setInput("");
     setIsLoading(true);
 
     const aiMessageId = (Date.now() + 1).toString();
     const aiMessagePlaceholder: Message = {
         id: aiMessageId,
-        role: "ai",
+        role: "model",
         content: <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />,
     };
     setMessages((prev) => [...prev, aiMessagePlaceholder]);
 
     try {
-      const result = await chat({ message: currentInput });
+      const historyForApi = newMessages.map(m => ({
+          role: m.role,
+          content: typeof m.content === 'string' ? m.content : '',
+      })).filter(m => m.content);
+
+      const result = await chat({ history: historyForApi });
       const aiResponse: Message = {
         id: aiMessageId,
-        role: "ai",
+        role: "model",
         content: result.response,
       };
       setMessages((prev) => prev.map(m => m.id === aiMessageId ? aiResponse : m));
@@ -73,7 +79,7 @@ export function ChatInterface() {
         });
         const errorResponse: Message = {
             id: aiMessageId,
-            role: "ai",
+            role: "model",
             content: "Sorry, I encountered an error.",
         };
         setMessages((prev) => prev.map(m => m.id === aiMessageId ? errorResponse : m));
@@ -91,7 +97,7 @@ export function ChatInterface() {
                       <Heart className="w-16 h-16 text-primary animate-pulse" />
                       <h2 className="mt-4 text-2xl font-semibold tracking-wide">A Story of Two Hearts</h2>
                       <p className="mt-2 text-muted-foreground">
-                          Every message is a new chapter. What would you like to know?
+                          Every message is a new chapter. What would you like to say?
                       </p>
                   </div>
               ) : (
@@ -103,7 +109,7 @@ export function ChatInterface() {
                       message.role === "user" && "justify-end"
                       )}
                   >
-                      {message.role === "ai" && (
+                      {message.role === "model" && (
                       <Avatar className="w-8 h-8 border">
                           <AvatarFallback className="bg-secondary"><Bot className="w-4 h-4" /></AvatarFallback>
                       </Avatar>
@@ -133,7 +139,7 @@ export function ChatInterface() {
             <Input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask something about their story..."
+                placeholder="Send a message..."
                 className="flex-1"
                 disabled={isLoading}
             />
