@@ -84,13 +84,13 @@ export function ChatInterface() {
     <div className="flex flex-col h-full">
         <div className="flex-1 overflow-hidden">
             <ScrollArea className="h-full" ref={scrollAreaRef}>
-                <div className="p-4 space-y-6">
+                <div className="p-4 sm:p-6 space-y-6">
                 {messages.length === 0 ? (
                     <div className="flex flex-col items-center justify-center h-full text-center">
                         <Heart className="w-16 h-16 text-primary animate-pulse" />
-                        <h2 className="mt-4 text-2xl font-semibold tracking-wide">A Story Waiting to Unfold</h2>
+                        <h2 className="mt-4 text-2xl font-semibold tracking-wide">A Story of Two Hearts</h2>
                         <p className="mt-2 text-muted-foreground">
-                            Every great love story starts somewhere. Ask about ours.
+                            Every message is a new chapter. What would you like to know?
                         </p>
                     </div>
                 ) : (
@@ -128,7 +128,7 @@ export function ChatInterface() {
                 </div>
             </ScrollArea>
         </div>
-        <div className="p-4 bg-background/80 backdrop-blur-sm border-t mb-3 sm:mb-0">
+        <div className="p-4 bg-background/80 backdrop-blur-sm border-t">
             <form onSubmit={handleSendMessage} className="flex items-center gap-3">
             <Input
                 value={input}
