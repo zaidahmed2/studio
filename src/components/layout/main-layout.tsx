@@ -12,7 +12,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
            <ZaniaLogo />
         </Link>
       </header>
-      <main className="flex-1 overflow-hidden">
+      <main className="flex-1 overflow-auto">
         {children}
       </main>
     </div>

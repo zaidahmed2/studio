@@ -89,15 +89,15 @@ export function ChatInterface() {
   };
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full max-h-[calc(100vh-4rem)]">
         <ScrollArea className="flex-1" ref={scrollAreaRef}>
             <div className="p-4 sm:p-6 space-y-6 h-full">
               {messages.length === 0 ? (
                   <div className="flex flex-col items-center justify-center h-full text-center">
                       <Heart className="w-16 h-16 text-primary animate-pulse" />
-                      <h2 className="mt-4 text-2xl font-semibold tracking-wide">A Story of Two Hearts</h2>
+                      <h2 className="mt-4 text-2xl font-semibold tracking-wide">Sirf Aapke Liye</h2>
                       <p className="mt-2 text-muted-foreground">
-                          Every message is a new chapter. What would you like to say?
+                          Zaid se guftugu shuru karein. Pehla message bhejein.
                       </p>
                   </div>
               ) : (
