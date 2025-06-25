@@ -9,7 +9,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
     <div className="flex flex-col min-h-screen">
       <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background/80 px-4 backdrop-blur-sm sm:px-6">
         <Link href="/" className="flex items-center gap-2 font-semibold">
-           <ZaniaLogo className="h-10 text-accent" />
+           <ZaniaLogo />
         </Link>
       </header>
       <main className="flex-1 p-4 sm:p-6">
