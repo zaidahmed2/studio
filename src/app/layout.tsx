@@ -4,7 +4,7 @@ import { MainLayout } from '@/components/layout/main-layout';
 import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
-  title: 'Zania - AI Assistant',
+  title: 'Zaina - AI Assistant',
   description: 'An AI-powered assistant with custom training capabilities.',
 };
 
